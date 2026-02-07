@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Estudantil – EE Américo Franco</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .page-content { display: none; }
+        .page-content.active { display: block; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .nav-link.active { color: #facc15; border-bottom: 2px solid #facc15; }
+        .card-hover:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+        
+        /* Ajuste para o menu fixo não cobrir o conteúdo */
+        main { min-height: 80vh; }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react/": "https://esm.sh/react@^19.2.4/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+    <!-- Header / Navbar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-blue-800 text-white shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div id="logo-btn" class="flex items-center space-x-2 cursor-pointer group">
+                    <div class="bg-yellow-400 p-1.5 rounded-lg text-blue-900 group-hover:rotate-12 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" /></svg>
+                    </div>
+                    <span class="font-bold text-lg hidden md:inline tracking-tight">Portal Estudantil – Américo Franco</span>
+                    <span class="font-bold text-lg md:hidden">Américo Franco</span>
+                </div>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden lg:flex space-x-1">
+                    <button data-page="home" class="nav-link px-4 py-2 transition-all text-xs font-bold uppercase tracking-widest hover:text-yellow-400">Início</button>
+                    <button data-page="school" class="nav-link px-4 py-2 transition-all text-xs font-bold uppercase tracking-widest hover:text-yellow-400">Escola</button>
+                    <button data-page="studies" class="nav-link px-4 py-2 transition-all text-xs font-bold uppercase tracking-widest hover:text-yellow-400">Estudos</button>
+                    <button data-page="interclasses" class="nav-link px-4 py-2 transition-all text-xs font-bold uppercase tracking-widest hover:text-yellow-400">Interclasses</button>
+                    <button data-page="announcements" class="nav-link px-4 py-2 transition-all text-xs font-bold uppercase tracking-widest hover:text-yellow-400">Avisos</button>
+                    <button data-page="gallery" class="nav-link px-4 py-2 transition-all text-xs font-bold uppercase tracking-widest hover:text-yellow-400">Galeria</button>
+                    <button data-page="about" class="nav-link px-4 py-2 transition-all text-xs font-bold uppercase tracking-widest hover:text-yellow-400">Sobre</button>
+                </nav>
+
+                <!-- Mobile Menu Toggle -->
+                <button id="mobile-toggle" class="lg:hidden p-2 rounded-md hover:bg-blue-700 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-blue-900 border-t border-blue-700 w-full absolute shadow-2xl">
+            <nav class="flex flex-col p-4 space-y-2">
+                <button data-page="home" class="mobile-nav-link text-left px-4 py-3 rounded-md hover:bg-blue-700 font-bold uppercase text-xs tracking-widest">Início</button>
+                <button data-page="school" class="mobile-nav-link text-left px-4 py-3 rounded-md hover:bg-blue-700 font-bold uppercase text-xs tracking-widest">Escola</button>
+                <button data-page="studies" class="mobile-nav-link text-left px-4 py-3 rounded-md hover:bg-blue-700 font-bold uppercase text-xs tracking-widest">Estudos</button>
+                <button data-page="interclasses" class="mobile-nav-link text-left px-4 py-3 rounded-md hover:bg-blue-700 font-bold uppercase text-xs tracking-widest">Interclasses</button>
+                <button data-page="announcements" class="mobile-nav-link text-left px-4 py-3 rounded-md hover:bg-blue-700 font-bold uppercase text-xs tracking-widest">Avisos</button>
+                <button data-page="gallery" class="mobile-nav-link text-left px-4 py-3 rounded-md hover:bg-blue-700 font-bold uppercase text-xs tracking-widest">Galeria</button>
+                <button data-page="about" class="mobile-nav-link text-left px-4 py-3 rounded-md hover:bg-blue-700 font-bold uppercase text-xs tracking-widest">Sobre</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main id="app-container" class="flex-grow pt-16">
+        <!-- O conteúdo será injetado pelo JavaScript -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-blue-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div>
+                    <h3 class="text-xl font-black mb-6 uppercase tracking-tighter">EE Américo Franco</h3>
+                    <p class="text-blue-200 text-sm leading-relaxed mb-6">
+                        Escola Estadual de Poá - São Paulo. <br>
+                        Comprometida com a educação e o protagonismo dos nossos estudantes.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://instagram.com/americo_franco" target="_blank" class="text-yellow-400 hover:text-white transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-black mb-6 uppercase text-xs tracking-widest text-yellow-400">Atalhos</h4>
+                    <ul class="space-y-3 text-sm text-blue-200">
+                        <li><button data-page="announcements" class="footer-link hover:text-yellow-400 transition-colors">Avisos Importantes</button></li>
+                        <li><button data-page="studies" class="footer-link hover:text-yellow-400 transition-colors">Dicas de Estudo</button></li>
+                        <li><button data-page="interclasses" class="footer-link hover:text-yellow-400 transition-colors">Tabela Interclasses</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-black mb-6 uppercase text-xs tracking-widest text-yellow-400">Contato Administrativo</h4>
+                    <p class="text-sm text-blue-200 leading-relaxed">
+                        e907030a@educacao.sp.gov.br<br>
+                        (11) 4636-6322<br>
+                        Poá, São Paulo - Brasil
+                    </p>
+                </div>
+            </div>
+            <div class="border-t border-blue-800 mt-12 pt-8 text-center">
+                <p class="text-[10px] uppercase font-black tracking-widest text-blue-400">
+                    &copy; <span id="current-year"></span> EE Américo Franco - Todos os direitos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
